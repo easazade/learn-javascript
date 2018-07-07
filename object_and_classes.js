@@ -54,3 +54,8 @@ console.log(backRoomClerk);
 //TODO creating objects using prototypes in their constructor functions
 //checkout prototypes page
 
+
+
+//TODO getting list of all properties in an object as an array
+console.log(Object.keys(panda));
+
