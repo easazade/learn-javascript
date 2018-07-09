@@ -12,3 +12,11 @@ let objects = numbers
     })
     .find(m => m.value == 54);
 console.log(objects);
+
+/*
+one amazing thing about arrow function is that when we use them instead of a anynomous function
+and we use this keyword inside the function we won't get property undefind error
+so arrow functions know which context to look at and we don't have to use that = this;
+to get a reference to the right context
+*/
+
