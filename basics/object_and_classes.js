@@ -46,7 +46,7 @@ function Animal(name, size) {
     }
 }
 
-let panda = new Animal("panda","big");
+let panda = new Animal("panda", "big");
 console.log(panda);
 console.log(deskClerk);
 console.log(backRoomClerk);

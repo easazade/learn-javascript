@@ -6,7 +6,7 @@ Human.prototype.printName = function () {
     console.log(this.name);
 };
 
-let asshole = new Human("trump");
+let dude = new Human("dude");
 let shapoor = new Human("shapoor");
-asshole.printName();
+dude.printName();
 shapoor.printName();

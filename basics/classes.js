@@ -27,7 +27,7 @@ class User {
         //TODO if we return just name instead of this.name the name of the window's name property
         //TODO will be returned note that window has a name property
         //TODO by default which does not have a name in the
-        //TODO code above we're just giving it a value for the sake of the test
+        //TODO code above we're just giving it a value in above for the sake of the test
         return this.name;
     }
 
@@ -35,6 +35,6 @@ class User {
 
 
 let user = new User("ali", "93u80d3h290ue", ["math", "literature", "physics"]);
+
 console.log(user.getListOfBooks());
 console.log(user.getLocalVar());
-
