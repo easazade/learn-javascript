@@ -13,7 +13,7 @@ for (let key in circle)
 //our initial object does not have to be empty    
 let another2 = Object.assign({}, circle);
 
-//this spread operator will does exactly what first method does
+//this spread operator will do exactly what first method does
 let another3 = { ...circle };
 
 console.log(another1);

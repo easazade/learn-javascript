@@ -18,7 +18,7 @@ class User {
     }
 
     getListOfBooks() {
-        //how ever there is no point to write getters and setters for public variables
+        //however there is no point to write getters and setters for public variables
         //just wanted to write a function
         return this.books;
     }
