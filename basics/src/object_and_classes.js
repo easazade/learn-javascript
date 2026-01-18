@@ -4,9 +4,9 @@
 
 let backRoomClerk = new Object();
 //now we can add any property or function we want to it
-backRoomClerk.name = "gholam";
+backRoomClerk.name = 'gholam';
 backRoomClerk.doWork = function (when) {
-    console.log("doing work at " + when);
+  console.log('doing work at ' + when);
 };
 // but for the sake of simplicity we use object literals like below
 
@@ -15,18 +15,18 @@ backRoomClerk.doWork = function (when) {
 //with object literals we directly create our object these object are defined literally without any class
 //note that we are creating an object not a class so the fields have values
 let deskClerk = {
-    name: "ali",
-    age: 19,
-    phone: "09117158746",
-    getName: function () {
-        return this.name;
-    }
+  name: 'ali',
+  age: 19,
+  phone: '09117158746',
+  getName: function () {
+    return this.name;
+  },
 };
 
 //adding more stuff to our object
-deskClerk.lastName = "isazade";
+deskClerk.lastName = 'isazade';
 deskClerk.getLastName = function () {
-    return this.lastName;
+  return this.lastName;
 };
 
 //TODO create objects using constructor functions
@@ -39,14 +39,14 @@ deskClerk.getLastName = function () {
 //TODO note that in javascript they kind of call classes constructors
 
 function Animal(name, size) {
-    this.name = name;
-    this.size = size;
-    this.getName = function () {
-        return this.name;
-    }
+  this.name = name;
+  this.size = size;
+  this.getName = function () {
+    return this.name;
+  };
 }
 
-let panda = new Animal("panda", "big");
+let panda = new Animal('panda', 'big');
 console.log(panda);
 console.log(deskClerk);
 console.log(backRoomClerk);
@@ -54,8 +54,5 @@ console.log(backRoomClerk);
 //TODO creating objects using prototypes in their constructor functions
 //checkout prototypes page
 
-
-
 //TODO getting list of all properties in an object as an array
 console.log(Object.keys(panda));
-

@@ -5,21 +5,21 @@
 //behaviors , and for the properties of the superType we inherit them differently when we are defining
 //our subType constructor
 function SuperType(firstName, lastName) {
-    this.firstName = "Virat";
-    this.lastName = "Kohli";
-    this.friends = ["Ashwin", "Jadeja"];
+  this.firstName = 'Virat';
+  this.lastName = 'Kohli';
+  this.friends = ['Ashwin', 'Jadeja'];
 }
 
 //SuperType prototype
 SuperType.prototype.getSuperName = function () {
-    return this.firstName + " " + this.lastName;
+  return this.firstName + ' ' + this.lastName;
 };
 
 //SubType prototype function
 function SubType(firstName, lastName, age) {
-    //Inherit instance properties
-    SuperType.call(this, firstName, lastName);
-    this.age = age;
+  //Inherit instance properties
+  SuperType.call(this, firstName, lastName);
+  this.age = age;
 }
 
 //Inherit methods and shared properties
@@ -27,18 +27,18 @@ SubType.prototype = new SuperType();
 
 //Add new property to SubType prototype
 SubType.prototype.getSubAge = function () {
-    return this.age;
+  return this.age;
 };
 
 //Create SubType objects
-let subTypeObj1 = new SubType("Virat", "Kohli", 26);
-let subTypeObj2 = new SubType("Sachin", "Tendulkar", 39);
+let subTypeObj1 = new SubType('Virat', 'Kohli', 26);
+let subTypeObj2 = new SubType('Sachin', 'Tendulkar', 39);
 
 //Modify the friends property using the subTypeObj1
-subTypeObj1.friends.push("Amit");
+subTypeObj1.friends.push('Amit');
 
-console.log(subTypeObj1.friends);//["Ahswin", "Jadega", "Amit"]
-console.log(subTypeObj2.friends);//["Ashwin", "Jadega"]
+console.log(subTypeObj1.friends); //["Ahswin", "Jadega", "Amit"]
+console.log(subTypeObj2.friends); //["Ashwin", "Jadega"]
 
 //subTypeObj1
 console.log(subTypeObj1.firstName); //Output: Virat
@@ -51,6 +51,3 @@ console.log(subTypeObj2.firstName); //Output: Sachin
 console.log(subTypeObj2.age); //Output: 39
 console.log(subTypeObj2.getSuperName()); //Output: Sachin Tendulkar
 console.log(subTypeObj2.getSubAge()); //Output: 39
-
-
-

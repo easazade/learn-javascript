@@ -1,16 +1,15 @@
 const circle = {
-    radius: 5,
-    draw() {
-        console.log("drawing circle");
-    }
-}
+  radius: 5,
+  draw() {
+    console.log('drawing circle');
+  },
+};
 
 let another1 = {};
 
-for (let key in circle)
-    another1[key] = circle[key];
+for (let key in circle) another1[key] = circle[key];
 
-//our initial object does not have to be empty    
+//our initial object does not have to be empty
 let another2 = Object.assign({}, circle);
 
 //this spread operator will do exactly what first method does
