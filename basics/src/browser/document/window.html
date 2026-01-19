@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="html">
+<body>
+
+</body>
+
+
+</html>
+
+<script>
+    // window is the root object in browser environment as opposed to
+    // global object being the root object in nodejs environment
+
+    // change the background color to red
+    document.body.style.background = "red";
+    // change it back after 1 second
+    setTimeout(() => document.body.style.background = "", 1000);
+
+    // document object belongs to the window object since window is the global object we can just call document, instead
+    // of window.document. Note that any function we define or any variable we define will be attached to the global object
+    // which again in browser runtime is the window object.
+
+</script>
