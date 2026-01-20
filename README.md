@@ -17,3 +17,6 @@ Here's a bird's-eye view of what we have when JavaScript runs in a web browser:
 #### Node:
 
 ![image](./images/nodejs_runtime_structure.png)
+
+# Simple notes 
+- scripts inside html docs can only access the document lines above so. if a script is inside <head> it cannot read <body>
