@@ -3,18 +3,29 @@
     <div>Begin</div>
 
     <ul>
-      <li>Information!!!</li>
+      <li>Information!</li>
     </ul>
 
     <div>End</div>
 
-    <script>
-      console.log('Something!');
-      // logging all child nodes of the body
-      for (let childNode of document.body.childNodes) {
-        console.log(childNode); // Text, DIV, Text, UL, ..., SCRIPT
-      }
-    </script>
     ...more stuff...
   </body>
 </html>
+
+<!--
+Although the script is outside the <body> in the source HTML, the browser relocates it
+into <body> during HTML parsing to produce a valid DOM. JavaScript operates on this parsed
+DOM, not on the original markup. So in the console code inside the script tag is also
+logged as well. since <script> will also be a child of body.
+
+According to the HTML spec:
+  <script> is not allowed as a direct child of <html>. It must be inside <head> or <body>
+  So browser rearranges <script> and puts it inside the body
+-->
+<script>
+  console.log('Something!');
+  // logging all children of the body
+  for (let child of document.body.children) {
+    console.log(child.innerHTML); // Text, DIV, Text, UL, ..., SCRIPT
+  }
+</script>
