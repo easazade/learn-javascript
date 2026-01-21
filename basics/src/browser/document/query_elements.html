@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <body style="font-family: Tahoma, serif">
+    <h1 id="title">Welcome to JS!</h1>
+    <p>!Javascript is the best programming language</p>
+    <p>Javascript developers are real developers.</p>
+    <h3>Items:</h3>
+    <ul>
+      <li>Cat</li>
+      <li>Dog</li>
+    </ul>
+    <ul>
+      <li>Warm</li>
+      <li>Cold</li>
+    </ul>
+  </body>
+</html>
+<script>
+  let title = document.getElementById('title');
+  title.style.color = 'red';
+  title.style.background = 'blue';
+
+  let items = document.querySelectorAll('ul > li');
+  for (let item of items) {
+    item.style.color = 'red';
+  }
+
+  // returns the first element that matches the query
+  let item = document.querySelector('ul > li:last-child');
+  item.style.color = 'green';
+</script>
