@@ -1,0 +1,15 @@
+<div>First div</div>
+
+<script>
+  let divs = document.getElementsByTagName('div');
+  console.log(divs.length); // 1
+</script>
+
+<div>Second div</div>
+
+<script>
+  // All methods "getElementsBy*" return a live collection. Such collections always
+  // reflect the current state of the document and “auto-update” when it changes.
+  // In contrast, querySelectorAll returns a static collection. It’s like a fixed array of elements
+  console.log(divs.length); // 2
+</script>
