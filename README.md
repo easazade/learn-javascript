@@ -20,3 +20,8 @@ Here's a bird's-eye view of what we have when JavaScript runs in a web browser:
 
 # Simple notes 
 - scripts inside html docs can only access the document lines above so. if a script is inside <head> it cannot read <body>
+
+## DOM Node classes
+
+![image](./images/dom_nodes.png)
+READ more at https://javascript.info/basic-dom-node-properties
