@@ -1,0 +1,39 @@
+<html lang="en">
+  <body>
+    <h1>Elements</h1>
+    <p>Element class extends Node class</p>
+    <p>Document class is a node but not an Element</p>
+    <div>
+      <p>nested paragraph</p>
+    </div>
+  </body>
+</html>
+
+<script>
+  // we can call name of classes at runtime using constructor.name
+  console.log(document.constructor.name); // HTMLBodyElement
+
+  // dir vs log
+  console.log('------------------ log -------------------');
+  console.log(document.body);
+  console.log('------------------ dir -------------------');
+  console.dir(document.body);
+  console.log('------------------------------------------');
+
+  if (document.body instanceof HTMLElement) {
+    console.log(`${document.body.constructor.name} is an HTMLElement`);
+    console.log(`${document.body.nodeName} is an HTMLElement`);
+    console.log(`${document.body.tagName} is an HTMLElement`);
+    // tagName exists only for Elements since all elements are tags.
+    // Texts & Comments nodes and HtmlDocument (document object) don't have tagNames
+    // nodeName exists for all Nodes including tags.
+  }
+
+  for (let index in document.body.children) {
+    const child = document.body.children[index];
+    if (!(child instanceof HTMLElement)) {
+      continue;
+    }
+    console.log(`child ${index} is instance of ${child.constructor.name}`);
+  }
+</script>
