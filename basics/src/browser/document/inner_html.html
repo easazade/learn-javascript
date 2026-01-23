@@ -4,5 +4,34 @@
     <meta charset="UTF-8" />
     <title>Title</title>
   </head>
-  <body></body>
+  <body>
+    <div id="content">
+      <div id="navbar"></div>
+      <p>Placeholder text</p>
+    </div>
+  </body>
 </html>
+
+<script>
+  // example of innerHTML
+  let navbar = document.querySelector('#navbar');
+  navbar.innerHTML = `
+    <ul>
+        <li>Home</li>
+        <li>Services</li>
+        <li>Pricing</li>
+        <li>About us</li>
+    </ul>`;
+
+  // NOTE: whenever you use += it will append the HTML, but technically it will
+  // re-render the whole thing again.
+  navbar.innerHTML += '<span>Bottom of navbar</span>';
+
+  // example of outerHTML. outerHTML will change the tag itself as well. meaning it replaces it.
+  // !!! NOTE: as soon as you call elm.outerHTML = "..." the elm variable reference is no longer valid
+  // it is odd but that is how JavaScript works. you have to get the reference again to the changed/new
+  // element in the tree
+  let paragraph = document.querySelector('p');
+  paragraph.outerHTML = `<div style="color: white; background-color: indianred;">${paragraph.outerHTML}</div>`;
+  paragraph.innerHTML = '--'; // doesn't work as explained above.
+</script>

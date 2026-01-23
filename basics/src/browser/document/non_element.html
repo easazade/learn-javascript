@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    Hello
+    <!-- Comment -->
+
+    <div>
+      Outer div
+      <div>
+        Inner div
+        <p>paragraph 1</p>
+        <p>paragraph 2</p>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  // non-elements like comments and texts don't have innerHTML or outerHTML they have data property
+  let text = document.body.firstChild;
+  console.log(text.data); // Hello
+
+  let comment = text.nextSibling;
+  console.log(comment.data); // Comment
+
+  // It is also possible to get texts for an elements and all its children.
+  let div = document.querySelector('div');
+  console.log(div.textContent);
+</script>
