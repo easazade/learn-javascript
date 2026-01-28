@@ -1,5 +1,3 @@
-// 📁 say.js
-
 // Named exports (inline)
 export function sayHi(name) {
   console.log(`Hi, ${name}`);

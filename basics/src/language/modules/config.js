@@ -1,5 +1,3 @@
-// 📁 config.js
-
 // will not be visible in other files if not exported
 const defaultSize = 480;
 
