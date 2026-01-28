@@ -1,0 +1,27 @@
+<div id="user" data-user-name="Ali"></div>
+
+<script>
+  // Use getAttribute, setAttribute, hasAttribute, removeAttribute.
+  // All attributes are accessible via attributes. data-* attributes map to dataset.
+  const el = document.getElementById('user');
+
+  // Basic attribute methods
+  el.setAttribute('role', 'admin');
+  console.log(el.getAttribute('role')); // "admin"
+  console.log(el.hasAttribute('role')); // true
+  el.removeAttribute('role');
+
+  // data-* shortcut
+  // All attributes starting with “data-” are reserved for programmers’ use.
+  // They are available in the dataset property as properties .
+  // So if HTML adds a new standard attribute, it will not conflict with ours.
+  console.log(el.dataset.userName); // "Ali"
+  el.dataset.age = '25';
+  console.log(el.getAttribute('data-age')); // "25"
+  console.log('-----------------------------------');
+
+  // Listing all attributes
+  for (let attr of el.attributes) {
+    console.log(attr.name, attr.value);
+  }
+</script>

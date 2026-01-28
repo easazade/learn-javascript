@@ -1,0 +1,46 @@
+<div id="box" custom="123"></div>
+<div>
+  <input id="inp" value="hello" />
+  <input type="checkbox" id="check" checked />
+</div>
+
+<script>
+  // DOM Properties vs HTML Attributes
+  // DOM elements are JS objects with properties.
+  // HTML attributes live in markup. Standard attributes often map to properties, non-standard ones do not.
+  const el = document.getElementById('box');
+
+  // Standard attribute → property exists
+  console.log(el.id); // "box"
+
+  // Non-standard attribute → no property but can be accessed using getAttribute
+  console.log(el.custom); // undefined
+  console.log(el.getAttribute('custom')); // "123"
+
+  // We can add custom JS property to any element since it is a js object like any other objects.
+  el.myData = { role: 'admin' };
+  console.log(el.myData.role); // "admin"
+
+  // ##########
+  // NOTE: attributes are always string, but properties can have type.
+
+  const inp = document.getElementById('inp');
+  const check = document.getElementById('check');
+
+  // Initially synced
+  console.log(inp.getAttribute('value')); // "hello"
+  console.log(inp.value); // "hello"
+
+  // Change property
+  inp.value = 'bye';
+
+  console.log(inp.value); // "bye"
+  console.log(inp.getAttribute('value')); // still "hello"
+
+  // Typed property vs string attribute
+  console.log(check.getAttribute('checked')); // "" (string)
+  console.log(check.checked); // true (boolean)
+
+  check.checked = false;
+  console.log(check.checked); // false
+</script>
