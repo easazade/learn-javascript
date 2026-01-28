@@ -19,7 +19,8 @@ Here's a bird's-eye view of what we have when JavaScript runs in a web browser:
 ![image](./images/nodejs_runtime_structure.png)
 
 # Simple notes 
-- scripts inside html docs can only access the document lines above so. if a script is inside <head> it cannot read <body>
+- scripts inside HTML docs can only access the document lines above so. if a script is inside <head> it cannot read <body>
+- JavaScript introduced ES Modules with import and export as the modern, standardized module system, while Node originally used its own older system called CommonJS, which loads modules using require() and module.exports.
 
 ## DOM Node classes
 
