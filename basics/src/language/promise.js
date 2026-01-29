@@ -3,6 +3,9 @@
 // then for success, .catch for failure, chain multiple actions by returning new values or promises,
 // and can wait for several promises in parallel with Promise.all.
 
+// All synchronous code runs first.
+console.log('Runs First');
+
 // A function that returns a promise that resolves or rejects after a delay
 function waitAndReturnPromise(ms, succeed = true) {
   return new Promise((resolve, reject) => {
@@ -11,6 +14,7 @@ function waitAndReturnPromise(ms, succeed = true) {
         resolve(`Done after ${ms}ms`);
       } else {
         reject(new Error(`Failed after ${ms}ms`));
+        // or just => throw new Error('message ...');
       }
     }, ms);
   });
@@ -31,6 +35,10 @@ waitAndReturnPromise(500)
   })
   .catch((err) => {
     console.error('Caught error:', err.message);
+  })
+  .finally(() => {
+    // Runs no matter what — success or failure
+    console.log('Cleanup or final logic runs here');
   });
 
 // 2) Error example (with reject)
@@ -54,3 +62,6 @@ new Promise((resolve, reject) => {
 }).then((resolve) => {
   console.log('awaited 1000 milliseconds');
 });
+
+// All synchronous code runs first.
+console.log('Runs Second');
