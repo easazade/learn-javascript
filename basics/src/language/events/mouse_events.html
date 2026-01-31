@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mouse Events Example</title>
+    <style>
+      #box {
+        width: 300px;
+        height: 200px;
+        background: #eef;
+        border: 2px solid #99c;
+        line-height: 200px;
+        text-align: center;
+        font-family: sans-serif;
+        user-select: none;
+      }
+      #log {
+        font-family: monospace;
+        margin-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">Interact with me</div>
+    <pre id="log"></pre>
+
+    <script>
+      const box = document.getElementById('box');
+      const log = document.getElementById('log');
+
+      // helper to log messages
+      function report(msg) {
+        if (log.textContent.length > 100) {
+          log.textContent = '';
+        }
+        log.textContent += msg + '\n';
+        log.scrollTop = log.scrollHeight;
+      }
+
+      box.addEventListener('click', (e) => {
+        report(`click at (${e.clientX},${e.clientY})`);
+      });
+
+      box.addEventListener('mousedown', (e) => {
+        report(`mousedown button=${e.button}`);
+      });
+
+      box.addEventListener('mouseup', (e) => {
+        report(`mouseup button=${e.button}`);
+      });
+
+      box.addEventListener('mousemove', (e) => {
+        report(`mousemove at (${e.offsetX},${e.offsetY})`);
+      });
+
+      box.addEventListener('dblclick', (e) => {
+        report(`double-clicked`);
+      });
+
+      // prevent default context menu, and log right-click
+      box.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        report('right-click (contextmenu prevented)');
+      });
+    </script>
+  </body>
+</html>
