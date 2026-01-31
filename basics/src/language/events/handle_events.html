@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Event Demo</title>
+  </head>
+  <body>
+    <p>
+      Inline HTML attribute — put the handler right in the tag (onclick="…") DOM property — assign a
+      function to elem.onclick addEventListener — attach one or more handlers for the same event
+      without overwriting existing ones (best practice)
+    </p>
+    <button id="btn">Click me</button>
+    <br />
+    <button id="btn-2" onclick="doSomething()">Click to do something</button>
+
+    <p id="log">No clicks yet.</p>
+
+    <script>
+      const btn = document.getElementById('btn');
+      const log = document.getElementById('log');
+
+      // add a callback to onclick to listen to click events.
+      btn.onclick = (event) => {
+        console.log(event);
+        console.log('click!!');
+      };
+
+      // another way of listening to click events
+      btn.addEventListener('click', function (event) {
+        // 3. Use properties from the event object
+        const type = event.type; // "click"
+        const element = event.currentTarget.tagName; // "BUTTON"
+
+        // 4. React: update the text
+        log.textContent = `Event "${type}" fired on <${element}>`;
+      });
+
+      function doSomething() {
+        console.log('Did something');
+      }
+    </script>
+  </body>
+</html>
