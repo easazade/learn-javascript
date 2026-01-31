@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Drag and Drop Example</title>
+    <style>
+      #draggable {
+        width: 120px;
+        height: 120px;
+        background: #79b;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        cursor: grab;
+        user-select: none;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="draggable">Drag me</div>
+
+    <script>
+      const box = document.getElementById('draggable');
+      box.style.left = '0px';
+      box.style.top = '0px';
+
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let origX = 0;
+      let origY = 0;
+
+      // 1) Start dragging
+      box.addEventListener('mousedown', function (e) {
+        isDragging = true;
+        box.style.cursor = 'grabbing';
+        // record where the mouse and element are
+        startX = e.clientX;
+        startY = e.clientY;
+        origX = parseInt(box.style.left, 10);
+        origY = parseInt(box.style.top, 10);
+        box.style.borderRadius = '100%';
+
+        // prevent text selection
+        e.preventDefault();
+      });
+
+      // 2) During dragging — track mouse anywhere
+      document.addEventListener('mousemove', function (e) {
+        if (!isDragging) return;
+        // how far mouse has moved
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        console.log(`moving x = ${dx} y = ${dy}`);
+        // update element position
+        box.style.left = origX + dx + 'px';
+        box.style.top = origY + dy + 'px';
+      });
+
+      // 3) End dragging
+      document.addEventListener('mouseup', function () {
+        if (!isDragging) return;
+        box.style.borderRadius = '8px';
+        isDragging = false;
+        box.style.cursor = 'grab';
+      });
+    </script>
+  </body>
+</html>
