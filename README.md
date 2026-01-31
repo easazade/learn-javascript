@@ -1,4 +1,5 @@
-This is the playground for JavaScript
+This mono repository is the playground learning-ground for JavaScript.
+Most of the learning materials are written as code examples. But Some notes or useful images are here in README as well.
 
 # Introduction
 

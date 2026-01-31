@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dispatch Events Demo</title>
+  </head>
+  <body>
+    <button id="btn">Click me</button>
+
+    <script>
+      // Events are objects you can create and send.
+      // Built-in events mimic real actions; custom events carry your own signals.
+      //
+      // dispatchEvent = manual trigger.
+      // Listeners don’t need to know whether the event came from a user or your code.
+      const btn = document.getElementById('btn');
+
+      // 1. Normal event listener for "click" — just like browser user interaction
+      btn.addEventListener('click', function (event) {
+        // event.type is "click"
+        // event.isTrusted == true if it came from real user action
+        // event.isTrusted == false if we dispatch it manually
+        console.log('Click handler called. isTrusted?', event.isTrusted);
+      });
+
+      // 2. Dispatch a built-in MouseEvent
+      //    Here we set bubbles:true so the event bubbles like a normal click.
+      const simulatedClick = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        // optional: screenX, screenY, ctrlKey etc.
+      });
+
+      // simulate a user click after a short delay
+      setTimeout(() => {
+        btn.dispatchEvent(simulatedClick);
+        console.log('Simulated click dispatched');
+      }, 1000);
+
+      // 3. Create and dispatch a custom event with custom data
+      const customEvent = new CustomEvent('userChosen', {
+        bubbles: true,
+        detail: { choice: 'A', timestamp: Date.now() },
+      });
+
+      // listener for the custom event
+      btn.addEventListener('userChosen', function (event) {
+        // event.detail contains the object we passed
+        console.log('Custom event received:', event.detail);
+      });
+
+      // dispatch the custom event after another delay
+      setTimeout(() => {
+        btn.dispatchEvent(customEvent);
+      }, 1500);
+    </script>
+  </body>
+</html>
