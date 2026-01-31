@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Keyboard Events Example</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+      #info {
+        white-space: pre;
+        font-family: monospace;
+      }
+      .highlight {
+        font-weight: bold;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Press keys anywhere</h2>
+    <div id="info">Waiting for key events…</div>
+
+    <script>
+      const info = document.getElementById('info');
+
+      function show(event) {
+        // basic key properties
+        const key = event.key; // the value of the key pressed
+        const code = event.code; // physical key location
+        const ctrl = event.ctrlKey; // true if Ctrl is held
+        const shift = event.shiftKey; // true if Shift is held
+        const alt = event.altKey; // true if Alt is held
+        const meta = event.metaKey; // true if Meta (Windows/Command) is held
+
+        info.textContent =
+          `Event: ${event.type}\n` +
+          `Key: ${key} (code: ${code})\n` +
+          `Modifiers: Ctrl=${ctrl}, Shift=${shift}, Alt=${alt}, Meta=${meta}\n`;
+      }
+
+      // 1) keydown: fires once when key is pressed
+      document.addEventListener('keydown', show);
+
+      // 2) keyup: fires when key is released
+      document.addEventListener('keyup', show);
+
+      // 3) detect specific keys
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          info.textContent += '\nEscape pressed — resetting text.\n';
+        }
+        if (event.key === 'a' && event.metaKey) {
+          info.textContent += '\nCmd+A was pressed!';
+          event.preventDefault(); // block default (e.g., select all)
+        }
+      });
+    </script>
+  </body>
+</html>
