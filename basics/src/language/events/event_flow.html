@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Capturing vs Bubbling</title>
+    <style>
+      div {
+        padding: 20px;
+        border: 1px solid #444;
+        margin: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer">
+      Outer
+      <div id="middle">
+        Middle
+        <div id="inner">Inner (click me)</div>
+      </div>
+    </div>
+
+    <script>
+      // Event Flow: Capturing, Target, Bubbling
+      // **Events travel down then up.**
+      // Capture phase → Target → Bubble phase.
+
+      // When an event happens on a nested element, it travels through the DOM in three phases:
+      // Capturing phase — from the outermost ancestor down to the target.
+      // Target phase — the event reaches the actual element.
+      // Bubbling phase — the event travels back up from the target to the top.
+
+      // By default, most handlers run during bubbling, but you can listen during capturing too.
+
+      // grab elements
+      const outer = document.getElementById('outer');
+      const middle = document.getElementById('middle');
+      const inner = document.getElementById('inner');
+
+      // helper to log nicely
+      function log(phase, element, event) {
+        console.log(`${phase} on #${element.id} (type=${event.type})`);
+      }
+
+      // 1) Bubbling phase listeners (default)
+      outer.addEventListener('click', (e) => log('bubble', outer, e));
+      middle.addEventListener('click', (e) => log('bubble', middle, e));
+      inner.addEventListener('click', (e) => log('bubble', inner, e));
+
+      // 2) Capturing phase listeners (third argument: true)
+      outer.addEventListener('click', (e) => log('capture', outer, e), true);
+      middle.addEventListener('click', (e) => log('capture', middle, e), true);
+      inner.addEventListener('click', (e) => log('capture', inner, e), true);
+
+      /*
+  When you click #inner:
+  - First: capturing handlers run from outer → middle → inner
+  - Then: target handlers (inner) run
+  - Finally: bubbling handlers run from inner → middle → outer
+  */
+    </script>
+  </body>
+</html>
