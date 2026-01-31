@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Delegation Example</title>
+    <style>
+      .item {
+        cursor: pointer;
+        padding: 6px;
+        border-bottom: 1px solid #ccc;
+      }
+      .item:hover {
+        background: #eef;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="list">
+      <li class="item" data-id="1">Item 1</li>
+      <li class="item" data-id="2">Item 2</li>
+      <li class="item" data-id="3">Item 3</li>
+    </ul>
+    <p id="report"></p>
+
+    <script>
+      // Core idea:
+      // Rather than attaching separate event handlers to every similar element
+      // (like every button or list item), use one listener on a common ancestor and determine
+      // which specific element triggered the event using the event’s target. This uses event
+      // bubbling, where an event travels up the DOM from the source element to its ancestors.
+
+      // Why use delegation:
+      // Efficiency: one listener instead of many
+      // Dynamic elements: newly added elements automatically work
+      // Cleaner code: centralized event logic
+      const list = document.getElementById('list');
+      const report = document.getElementById('report');
+
+      list.addEventListener('click', function (event) {
+        // 1. Determine where the click actually happened
+        const item = event.target.closest('.item');
+        // 2. If the clicked area isn’t a list item, do nothing
+        if (!item || !list.contains(item)) return;
+
+        // 3. Use data from the clicked item
+        const id = item.dataset.id;
+        report.innerHTML = `clicked on item ${id}`;
+      });
+    </script>
+  </body>
+</html>
