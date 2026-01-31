@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Prevent Default Example</title>
+    <style>
+      a {
+        display: block;
+        margin: 8px 0;
+      }
+      button {
+        margin: 8px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- default: clicking this link navigates away -->
+    <a href="https://example.com" id="link">Go to example.com</a>
+
+    <!-- default: clicking this submits the form -->
+    <form id="form">
+      <input type="text" name="name" placeholder="Enter name" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <button id="custom">Custom action</button>
+
+    <script>
+      const link = document.getElementById('link');
+      const form = document.getElementById('form');
+      const customBtn = document.getElementById('custom');
+
+      // preventing right click on browser
+      document.oncontextmenu = (event) => {
+        event.preventDefault();
+        alert('Hey, No Funny Business !!!');
+      };
+
+      // 1) Prevent link navigation
+      link.addEventListener('click', function (event) {
+        // stop the browser’s default follow-the-URL
+        event.preventDefault();
+        alert('Link click intercepted — no navigation!');
+        // can run custom logic instead
+      });
+
+      // 2) Prevent form submission
+      form.addEventListener('submit', function (event) {
+        // cancel sending data
+        event.preventDefault();
+        alert('Form submit prevented!');
+        // do custom validation or AJAX instead
+      });
+
+      // 3) Prevent button’s default behavior
+      customBtn.addEventListener('click', function (event) {
+        // some elements (like <button>) have default behaviors in forms
+        // preventDefault prevents built-in effects
+        event.preventDefault();
+        console.log('Default prevented on a normal button');
+      });
+
+      // 4) Check if default was prevented
+      link.addEventListener('click', function (event) {
+        console.log('defaultPrevented?', event.defaultPrevented);
+      });
+    </script>
+  </body>
+</html>
