@@ -1,10 +1,15 @@
 const Card = () => {
-  const some = 'ss'
-  return <div>awd</div>
+  return <div>This is a Card</div>
 }
 
 function App() {
-  return <></>
+  return (
+    <>
+      <Card />
+      <Card />
+      <Card />
+    </>
+  )
 }
 
 export default App
