@@ -1,13 +1,17 @@
-const Card = () => {
-  return <div>This is a Card</div>
+const Card = ({ title }) => {
+  return (
+    <div>
+      <h2>{title}</h2>
+    </div>
+  )
 }
 
 function App() {
   return (
     <>
-      <Card />
-      <Card />
-      <Card />
+      <Card title={'Start Wars'} />
+      <Card title={'Lion King'} />
+      <Card title={'Avatar 2'} />
     </>
   )
 }
