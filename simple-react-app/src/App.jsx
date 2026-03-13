@@ -1,11 +1,30 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Card = ({ title }) => {
+  const [count, setCount] = useState(0)
   const [hasLiked, setHasLiked] = useState(false)
 
+  // the deps arguments will make useEffect to apply/call the effect only when given deps change.
+  useEffect(() => {
+    console.log(`${title} like status: ${hasLiked}`)
+  }, [hasLiked, title])
+
+  // one of the most common use cases of useEffects hook is to define a useEffect with empty array for deps
+  // that makes its effect callback to only run once when component is mounted.
+
+  useEffect(() => {
+    console.log(`${title} CARD RENDERED`)
+  }, [])
+
   return (
-    <div className="card">
+    // with useState effect it is recommended to update the state using a
+    // callback like: prev => prev +1 instead of just prev + 1
+    // This recommendation exists because state updates in React are asynchronous and may be batched.
+    // If you read count directly when updating state, you might read a stale value.
+    <div className="card" onClick={() => setCount((prev) => prev + 1)}>
       <h2>{title}</h2>
+      {/* {count || null} is the same as {count ? count : null} */}
+      <p>viewed: {count || null}</p>
       <button onClick={() => setHasLiked(!hasLiked)}>
         {hasLiked ? '❤️' : '🤍'}
       </button>

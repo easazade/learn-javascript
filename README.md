@@ -190,3 +190,54 @@ Settings → Languages & Frameworks → JavaScript → Prettier
 
 - Set package to `node_modules/prettier`
 - Enable "On save"
+
+
+## Common React Hooks
+
+React Hooks let you use state, lifecycle behavior, and other React features inside functional components.
+
+| Pattern | Hooks |
+|------|------|
+| Local component state | `useState` |
+| API calls / side effects | `useEffect` |
+| Prevent child re-renders | `useCallback` |
+| Derived state | `useMemo` |
+| DOM access | `useRef` |
+| Global state | `useContext` |
+| Complex state management | `useReducer` |
+
+List of all built-in react hooks https://react.dev/reference/react/hooks
+
+#### Functional State Update (React)
+
+Use:
+
+```js
+setCount(prev => prev + 1)
+```
+
+instead of:
+
+```js
+setCount(count + 1)
+```
+
+**Why:** React may **batch updates**, so `count` can be **stale**.
+
+Example:
+
+```js
+setCount(count + 1)
+setCount(count + 1)
+```
+
+Result: `+1`
+
+Correct:
+
+```js
+setCount(prev => prev + 1)
+setCount(prev => prev + 1)
+```
+
+Result: `+2`
