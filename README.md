@@ -191,6 +191,10 @@ Settings → Languages & Frameworks → JavaScript → Prettier
 - Set package to `node_modules/prettier`
 - Enable "On save"
 
+## Tailwind
+
+To Add tailwind to vite setup go to https://tailwindcss.com/docs/installation/using-vite
+
 
 ## Common React Hooks
 
