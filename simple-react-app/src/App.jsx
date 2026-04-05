@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const Card = ({ title }) => {
-  const [count, setCount] = useState(0)
+  const [likeCount, setLikeCount] = useState(0)
   const [hasLiked, setHasLiked] = useState(false)
 
   // the deps arguments will make useEffect to apply/call the effect only when given deps change.
@@ -9,7 +9,7 @@ const Card = ({ title }) => {
     console.log(`${title} like status: ${hasLiked}`)
   }, [hasLiked, title])
 
-  // one of the most common use cases of useEffects hook is to define a useEffect with empty array for deps
+  // one of the most common use cases of useEffects hook is to define a useEffect with empty array as deps arg
   // that makes its effect callback to only run once when component is mounted.
 
   useEffect(() => {
@@ -21,11 +21,13 @@ const Card = ({ title }) => {
     // callback like: prev => prev +1 instead of just prev + 1
     // This recommendation exists because state updates in React are asynchronous and may be batched.
     // If you read count directly when updating state, you might read a stale value.
-    <div className="card" onClick={() => setCount((prev) => prev + 1)}>
+    <div className="card" onClick={() => setLikeCount((prev) => prev + 1)}>
       <h2>{title}</h2>
       {/* {count || null} is the same as {count ? count : null} */}
-      <p>viewed: {count || null}</p>
       <button onClick={() => setHasLiked(!hasLiked)}>
+        <span style={{ fontSize: 12, color: 'white' }}>
+          {likeCount || null}
+        </span>{' '}
         {hasLiked ? '❤️' : '🤍'}
       </button>
     </div>
