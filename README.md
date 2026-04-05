@@ -187,10 +187,22 @@ It does NOT replace Prettier.
 
 ##### 5️⃣ Enable in WebStorm
 
+**Prettier**
 Settings → Languages & Frameworks → JavaScript → Prettier
 
 - Set package to `node_modules/prettier`
 - Enable "On save"
+
+**ESLint**
+Settings → Languages & Frameworks → JavaScript → Code Quality → Eslint
+
+- Set package to `node_modules/eslint`
+- Enable "On eslint --fix on save"
+
+> NOTE: By default eslint does not fix unused imports when eslint --fix is ran. It removes unused vars and other things though.
+
+**Enable optimize imports via IDE:**
+Settings → Tools → Action On Save → (& enable) Optimize Imports
 
 ## Tailwind
 
