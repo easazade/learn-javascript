@@ -204,7 +204,7 @@ Settings → Languages & Frameworks → JavaScript → Code Quality → Eslint
 **Enable optimize imports via IDE:**
 Settings → Tools → Action On Save → (& enable) Optimize Imports
 
-## Tailwind
+## Add Tailwind
 
 To Add tailwind to vite setup go to https://tailwindcss.com/docs/installation/using-vite
 
@@ -257,3 +257,100 @@ setCount((prev) => prev + 1);
 ```
 
 Result: `+2`
+
+## Add routing to a React app with React Router (react-router-dom)
+
+### 1. Install dependencies
+
+```bash
+npm install react-router-dom react-dom
+```
+
+### 2. Wrap your app with `BrowserRouter`
+
+Open your entry file (e.g. `main.jsx` or `main.tsx`):
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+);
+```
+
+### 3. Define your routes in `App.jsx`
+
+```jsx
+import { Routes, Route } from 'react-router-dom';
+
+function Home() {
+  return <h1>Home</h1>;
+}
+
+function About() {
+  return <h1>About</h1>;
+}
+
+function NotFound() {
+  return <h1>404</h1>;
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
+```
+
+### 4. Add navigation links
+
+```jsx
+import { Link } from 'react-router-dom';
+
+export default function Navbar() {
+  return (
+    <nav>
+      <Link to="/">Home</Link> | <Link to="/about">About</Link>
+    </nav>
+  );
+}
+```
+
+### 5. Use the navbar
+
+```jsx
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './Navbar';
+
+function Home() {
+  return <h1>Home</h1>;
+}
+
+function About() {
+  return <h1>About</h1>;
+}
+
+export default function App() {
+  return (
+    <>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </>
+  );
+}
+```
