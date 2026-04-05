@@ -99,6 +99,7 @@ Then run `npm test` to run the `test` script defined in `package.json`
 Vite is a frontend build tool.
 
 - To create a new react/vue/angular/etc project run `npm create vite@latest`
+- choose React and then "Javascript" or "Typescript"
 
 ##### Vite config:
 
@@ -195,20 +196,19 @@ Settings → Languages & Frameworks → JavaScript → Prettier
 
 To Add tailwind to vite setup go to https://tailwindcss.com/docs/installation/using-vite
 
-
 ## Common React Hooks
 
 React Hooks let you use state, lifecycle behavior, and other React features inside functional components.
 
-| Pattern | Hooks |
-|------|------|
-| Local component state | `useState` |
-| API calls / side effects | `useEffect` |
+| Pattern                  | Hooks         |
+| ------------------------ | ------------- |
+| Local component state    | `useState`    |
+| API calls / side effects | `useEffect`   |
 | Prevent child re-renders | `useCallback` |
-| Derived state | `useMemo` |
-| DOM access | `useRef` |
-| Global state | `useContext` |
-| Complex state management | `useReducer` |
+| Derived state            | `useMemo`     |
+| DOM access               | `useRef`      |
+| Global state             | `useContext`  |
+| Complex state management | `useReducer`  |
 
 List of all built-in react hooks https://react.dev/reference/react/hooks
 
@@ -217,13 +217,13 @@ List of all built-in react hooks https://react.dev/reference/react/hooks
 Use:
 
 ```js
-setCount(prev => prev + 1)
+setCount((prev) => prev + 1);
 ```
 
 instead of:
 
 ```js
-setCount(count + 1)
+setCount(count + 1);
 ```
 
 **Why:** React may **batch updates**, so `count` can be **stale**.
@@ -231,8 +231,8 @@ setCount(count + 1)
 Example:
 
 ```js
-setCount(count + 1)
-setCount(count + 1)
+setCount(count + 1);
+setCount(count + 1);
 ```
 
 Result: `+1`
@@ -240,8 +240,8 @@ Result: `+1`
 Correct:
 
 ```js
-setCount(prev => prev + 1)
-setCount(prev => prev + 1)
+setCount((prev) => prev + 1);
+setCount((prev) => prev + 1);
 ```
 
 Result: `+2`
