@@ -208,6 +208,12 @@ Settings → Tools → Action On Save → (& enable) Optimize Imports
 
 To Add tailwind to vite setup go to https://tailwindcss.com/docs/installation/using-vite
 
+Then go to `index.css` file and write
+
+```css
+@import 'tailwindcss';
+```
+
 ## Common React Hooks
 
 React Hooks let you use state, lifecycle behavior, and other React features inside functional components.
@@ -354,3 +360,53 @@ export default function App() {
   );
 }
 ```
+
+### How to navigate
+
+```jsx
+<button onClick={() => navigate(ROUTES.DASHBOARD_SETTINGS)}>
+  Go to settings
+</button>
+
+<NavLink to={ROUTES.DASHBOARD_PROFILE}>Profile</Link>
+```
+
+## React Entry point
+
+#### index.html
+
+Contains:
+
+```html
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
+```
+
+This loads `main.jsx` and provides the DOM node React mounts into.
+
+#### What is `main.jsx`
+
+```jsx
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import './index.css';
+import App from './App.jsx';
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
+);
+```
+
+Entry point of the app. It connects React to the DOM and starts rendering your UI.
+
+- `createRoot(domNode)` creates a React root and lets React control that DOM element.
+- `.render(<App />)` tells React what component tree to display inside the root.
+
+#### What if `main.jsx` doesn't exist
+
+React never mounts → app doesn’t run → blank page (unless another entry replaces it). In short `main.jsx` isn’t special by React itself, but by the setup (HTML + bundler) which uses it as the starting point.
