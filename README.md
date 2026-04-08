@@ -41,7 +41,9 @@ READ more at https://javascript.info/basic-dom-node-properties
 | `dart pub global activate pkg`   | `npm install -g pkg`                          |
 | `dart pub global deactivate pkg` | `npm uninstall -g pkg`                        |
 
-## Dart testing components equivalent in Javascript (with mocha)
+## JavaScript Testing
+
+#### components equivalent in Javascript (with mocha)
 
 This is a setup if you're building a JavaScript library. For testing
 React components, you should use `jest` library instead of `mocha`
@@ -536,7 +538,8 @@ Text styling.
 **Classes:**
 
 `text-lg` → sets font size to large  
-`text-center` → centers text horizontally  
+`text-center` →
+s text horizontally  
 `font-bold` → makes text bold  
 `leading-tight` → reduces line height for tighter text spacing
 
@@ -815,3 +818,213 @@ body {
 ```
 
 `@theme` is a css at-rule recognized by tailwind will take `@theme` and generates css classes base on the tokens defined in it.
+
+## Flexbox (Compact Guide)
+
+### 0. Core idea
+
+Flexbox is a **one-dimensional layout system**.
+
+> You define a direction → Flexbox distributes and aligns items along that axis.
+
+### 1. Two roles
+
+#### Flex container
+
+The parent:
+
+```css
+display: flex;
+```
+
+#### Flex items
+
+Direct children of the container.
+
+### 2. Axes (the most important concept)
+
+#### Main axis (flow direction)
+
+Controlled by:
+
+```css
+flex-direction: row | column;
+```
+
+- `row` → left → right
+- `column` → top → bottom
+
+#### Cross axis (perpendicular)
+
+- If `row` → cross = vertical
+- If `column` → cross = horizontal
+
+👉 Everything in flexbox is about **main axis vs cross axis**
+
+### 3. Alignment (this is where people get confused)
+
+#### Along main axis → `justify-content`
+
+```css
+justify-content: flex-start | center | flex-end | space-between | space-around | space-evenly;
+```
+
+👉 Moves items **along the direction they flow**
+
+#### Along cross axis → `align-items`
+
+```css
+align-items: stretch | flex-start | center | flex-end;
+```
+
+👉 Moves items **perpendicular to the flow**
+
+#### Per-item override → `align-self`
+
+```css
+align-self: center;
+```
+
+👉 One item breaks the rules
+
+### 4. Size behavior (very important)
+
+Each item has 3 knobs:
+
+#### `flex-grow`
+
+```css
+flex-grow: 1;
+```
+
+- Can expand to fill space
+
+#### `flex-shrink`
+
+```css
+flex-shrink: 1;
+```
+
+- Can shrink when space is tight
+
+#### `flex-basis`
+
+```css
+flex-basis: 200px;
+```
+
+- Starting size before grow/shrink
+
+#### Common shorthand:
+
+```css
+flex: 1; /* grow */
+flex: none; /* no grow, no shrink */
+flex: 0 0 auto;
+```
+
+### 5. Wrapping
+
+```css
+flex-wrap: nowrap | wrap;
+```
+
+- `nowrap` → single line (default)
+- `wrap` → items move to next line
+
+### 6. Gaps (clean spacing)
+
+```css
+gap: 8px;
+```
+
+👉 Space between items without margins
+
+### 7. The hidden rules (this is where bugs come from)
+
+#### Rule 1 — Flex items can shrink (unless told not to)
+
+```css
+flex-shrink: 0; /* Tailwind: shrink-0 */
+```
+
+#### Rule 2 — Default min-size is NOT zero
+
+- Items often behave like:
+
+```css
+min-width: auto;
+min-height: auto;
+```
+
+👉 This causes overflow bugs
+
+Fix:
+
+```css
+min-width: 0;
+min-height: 0;
+```
+
+#### Rule 3 — Overflow + flex requires constraints
+
+If you want scrolling:
+
+```css
+overflow-y: auto;
+```
+
+👉 The parent must have a **limited height**
+
+### 8. Tailwind mapping (quick translation)
+
+| CSS                     | Tailwind        |
+| ----------------------- | --------------- |
+| display: flex           | flex            |
+| flex-direction: row     | flex-row        |
+| flex-direction: column  | flex-col        |
+| justify-content: center | justify-center  |
+| align-items: center     | items-center    |
+| flex-shrink: 0          | shrink-0        |
+| flex-grow: 1            | grow            |
+| overflow-y: auto        | overflow-y-auto |
+| min-height: 0           | min-h-0         |
+
+### 9. Common layouts
+
+#### Center everything
+
+```css
+display: flex;
+justify-content: center;
+align-items: center;
+```
+
+#### Sidebar + content
+
+```css
+display: flex;
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  min-height:0;
+  overflow-y: auto;
+}
+
+.content {
+  flex: 1;
+}
+```
+
+#### Vertical layout (header + body)
+
+```css
+display: flex;
+flex-direction: column;
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+}
+```
