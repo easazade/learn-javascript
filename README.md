@@ -206,6 +206,38 @@ Settings → Languages & Frameworks → JavaScript → Code Quality → Eslint
 **Enable optimize imports via IDE:**
 Settings → Tools → Action On Save → (& enable) Optimize Imports
 
+##### 6️⃣ Enable in VS Code (format on save / auto save)
+
+**Extensions**
+
+- **Prettier - Code formatter** (`esbenp.prettier-vscode`)
+- **ESLint** (`dbaeumer.vscode-eslint`)
+
+**Settings**
+
+Command Palette → **Preferences: Open User Settings (JSON)** (or add `.vscode/settings.json` in the project).
+
+Use Prettier when the file is saved, and run ESLint fixes on save:
+
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  }
+}
+```
+
+If you use **File → Auto Save** (or `files.autoSave` such as `afterDelay`), `"always"` ensures ESLint fixes run whenever the file is saved automatically, not only on a manual save (`Cmd+S` / `Ctrl+S`). If you rely only on manual save, `"explicit"` is enough for ESLint fixes.
+
+Optional: enable auto save in settings, for example:
+
+```json
+"files.autoSave": "afterDelay",
+"files.autoSaveDelay": 1000
+```
+
 ## Common React Hooks
 
 React Hooks let you use state, lifecycle behavior, and other React features inside functional components.
