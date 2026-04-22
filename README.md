@@ -122,6 +122,40 @@ Module resolution = how Vite finds files when you use `import`.
 - Aliases: custom path shortcuts (e.g. '@' → '/src')
   Vite controls these rules via the `resolve` option.
 
+### Module import/export rules
+
+In Javascript any file that has import or export directive is called module.
+
+In Javascript there are named exports and default exports
+- Named export: it has a fixed name when you import it. You must use that name, unless you explicitly rename it with as.
+- Default export: you import it and choose the name
+
+❗ Key rules:
+
+- Only ONE default export per file
+- Named exports can be MANY
+- Default = no name → you choose it at import
+- Named = fixed name → must match (unless using "as")
+
+⚡ One-liner:
+default = "bring me the main thing (name it yourself)"
+named = "bring me this exact thing by its name"
+
+🧠 ES Modules Cheat Sheet (short & sharp)
+| TYPE           | EXPORT SYNTAX                | IMPORT SYNTAX                   | CAN RENAME?             |
+| -------------- | ---------------------------- | ------------------------------- | ----------------------- |
+| Default export | `export default Something`     | `import AnyName from './file'`    | ✅ Yes (anything)       |
+|                | `export default function() {}` | `import AnyName2 from './file'`        |                         |
+| Named export   | `export const A = 1`           | `import { A } from './file'`      | ❌ No (must match)      |
+|                | `export function B() {}`       | `import { B } from './file'`      |                         |
+| Rename named   | `export const A = 1`           | `import { A as X } from './file'` | ✅ Yes (with "as")      |
+| Mixed          | `export default X`             | `import X, { A } from './file'`   |                         |
+|                | `export const A = 1`           |                                 |                         |
+| Import all     | `export const A = 1`           | `import * as All from './file'`  | Access via All.A, All.B |
+|                | `export const B = 2`           |                                 |                         |
+
+
+
 ### Prettier + ESLint setup + WebStorm config
 
 ESLint for code quality and Prettier for code formatting.
@@ -1040,7 +1074,7 @@ display: flex;
 .sidebar {
   width: 240px;
   flex-shrink: 0;
-  min-height:0;
+  min-height: 0;
   overflow-y: auto;
 }
 
