@@ -1093,4 +1093,63 @@ flex-direction: column;
   flex: 1;
   overflow-y: auto;
 }
+
+```
+
+## Typescript
+
+### Language syntax
+
+**type definition:**
+
+```typescript
+// A primitive
+type Age = number;
+
+// A union of literal values (only these exact strings allowed)
+type Direction = 'north' | 'south' | 'east' | 'west';
+
+// An object shape
+type Point = {
+  x: number;
+  y: number;
+};
+
+// A function type
+type Greet = (name: string) => string;
+
+// An array
+type Scores = number[]; // or Array<number>
+
+// A tuple (fixed-length array with known types per position)
+type Pair = [string, number]; // e.g. ["age", 30]
+
+type ID = string | number; // either type
+
+type WithTimestamp = { createdAt: number };
+type Post = { title: string } & WithTimestamp; // must have BOTH
+```
+
+**type definition with discriminated union (or tagged union):**
+
+```typescript
+type WebviewMessage =
+  | {
+      type: 'ready';
+    }
+  | {
+      type: 'replaceDocument';
+      text: string;
+    };
+```
+
+valid values are:
+
+```typescript
+const msg1: WebviewMessage = { type: 'ready' }; // ✅ ok
+const msg2: WebviewMessage = { type: 'replaceDocument', text: 'hello' }; // ✅ ok
+
+const bad1: WebviewMessage = { type: 'ready', text: 'hi' }; // ❌ "ready" has no text
+const bad2: WebviewMessage = { type: 'replaceDocument' }; // ❌ missing required text
+const bad3: WebviewMessage = { type: 'delete' }; // ❌ "delete" isn't allowed
 ```
