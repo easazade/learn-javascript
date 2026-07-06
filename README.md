@@ -322,6 +322,205 @@ setCount((prev) => prev + 1);
 
 Result: `+2`
 
+### React `useEffect`
+
+`useEffect` is a React Hook used to run **side effects** after a component renders.
+
+A **side effect** means code that affects something outside the normal UI render, such as:
+
+```tsx
+document.title = "Home";
+fetch("/api/products");
+setInterval(...);
+window.addEventListener(...);
+localStorage.setItem(...);
+```
+
+#### Basic Syntax
+
+```tsx
+useEffect(() => {
+  // runs after render
+
+  return () => {
+    // optional cleanup
+  };
+}, [dependencies]);
+```
+
+#### Dependency Array
+
+```tsx
+useEffect(() => {
+  // runs after every render
+});
+```
+
+```tsx
+useEffect(() => {
+  // runs once when component mounts
+}, []);
+```
+
+```tsx
+useEffect(() => {
+  // runs when count changes
+}, [count]);
+```
+
+#### Example: Timer
+
+```tsx
+import { useEffect, useState } from 'react';
+
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  return <p>Seconds: {seconds}</p>;
+}
+```
+
+`useState(0)` creates the `seconds` state.
+
+`useEffect(..., [])` creates the interval once when the component mounts.
+
+`setSeconds((prev) => prev + 1)` safely updates state using the latest previous value.
+
+The returned function is cleanup. It stops the interval when the component unmounts.
+
+#### Example: Document Title
+
+```tsx
+useEffect(() => {
+  document.title = `Cart: ${cartItems.length}`;
+}, [cartItems.length]);
+```
+
+`cartItems` could be state, props, context, or store data. It must be considered a reactive value. In React, reactive values include props, state, and variables/functions declared inside the component. If an effect reads a reactive value, React’s dependency rules say it should be included in the dependency list so the effect stays synchronized
+
+`[cartItems.length]` is valid. The effect runs only when the cart count changes.
+
+Use:
+
+```tsx
+[cartItems.length];
+```
+
+when only the count matters.
+
+Use:
+
+```tsx
+[cartItems];
+```
+
+when the actual items matter.
+
+#### How React Connects Hooks to Components
+
+When React renders a component, it calls the component function.
+
+Hooks called during that render are attached to that component instance.
+
+React tracks hooks by **call order**, not by variable name.
+
+```tsx
+function Component() {
+  const [count, setCount] = useState(0); // hook #1
+  useEffect(() => {}, []); // hook #2
+
+  return <p>{count}</p>;
+}
+```
+
+Because of this, hooks must always be called in the same order.
+
+#### Custom Hooks
+
+If a function uses a hook, name it with `use`.
+
+```tsx
+function useDocumentTitle(title: string) {
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+}
+
+function CartPage({ cartItems }) {
+  useDocumentTitle(`Cart: ${cartItems.length}`);
+
+  return <p>Cart items: {cartItems.length}</p>;
+}
+```
+
+A custom hook shares logic, not shared state. Each component gets its own hook behavior.
+
+#### Event Handler vs `useEffect`
+
+Use an event handler for user actions:
+
+```tsx
+function handleClick() {
+  console.log('User clicked');
+}
+```
+
+Use `useEffect` for work caused by rendering or state/prop changes:
+
+```tsx
+useEffect(() => {
+  document.title = `Count: ${count}`;
+}, [count]);
+```
+
+#### Don’ts
+
+Do not use `useEffect` to calculate simple render values.
+
+```tsx
+const fullName = firstName + ' ' + lastName;
+```
+
+Do not call hooks inside:
+
+```
+if statements
+loops
+nested functions inside components
+event handlers
+normal utility functions which names not start with `use`
+```
+
+Bad:
+
+```tsx
+if (enabled) {
+  useEffect(() => {}, []);
+}
+```
+
+Good:
+
+```tsx
+function useSomething() {
+  useEffect(() => {}, []);
+}
+```
+
+#### Core Rule
+
+`useEffect` runs after render and is mainly used to synchronize a component with something outside React.
+
 ## Add routing to a React app with React Router (react-router-dom)
 
 ### 1. Install dependencies
@@ -1093,7 +1292,6 @@ flex-direction: column;
   flex: 1;
   overflow-y: auto;
 }
-
 ```
 
 ## Typescript
