@@ -346,7 +346,6 @@ But building a real application requires more than rendering UI. Applications al
 
 React’s solution to this problem is Hooks, and the Hook specifically designed for this kind of work is `useEffect`. In React terminology, these external operations are called **side effects**, which is why the Hook is named `useEffect`. A name like `useSideEffect` might have been more explicit, but `useEffect` means: run this effect after rendering, usually to synchronize the component with something outside React.
 
-
 #### Basic Syntax
 
 ```tsx
@@ -1362,3 +1361,156 @@ const bad1: WebviewMessage = { type: 'ready', text: 'hi' }; // ❌ "ready" has n
 const bad2: WebviewMessage = { type: 'replaceDocument' }; // ❌ missing required text
 const bad3: WebviewMessage = { type: 'delete' }; // ❌ "delete" isn't allowed
 ```
+
+### TypeScript Decorators
+
+Decorators are functions used with `@` to attach behavior or metadata to classes and class members.
+
+```ts
+@Controller('/users')
+class UserController {
+  @Get('/')
+  findAll() {}
+}
+```
+
+#### What can be decorated?
+
+In TypeScript, decorators are usually used on:
+
+```txt
+Classes
+Methods
+Properties
+Parameters
+Accessors
+```
+
+They are **not normally used on local variables** or standalone functions.
+
+#### What do decorators do?
+
+A decorator runs when the class/module is loaded.
+
+It can:
+
+```txt
+1. Store metadata
+2. Modify behavior
+3. Register something for later use
+```
+
+Example mental model:
+
+```txt
+@Get("/")
+↓
+stores metadata:
+this method handles GET /
+```
+
+#### The important part
+
+Decorators usually do not do the final work themselves.
+
+Instead:
+
+```txt
+Decorator stores metadata
+↓
+Some other code reads that metadata later
+↓
+That code creates behavior
+```
+
+Example:
+
+```txt
+@Controller + @Get
+↓
+store routing metadata
+↓
+router reads metadata
+↓
+HTTP requests are connected to methods
+```
+
+#### Simple example
+
+```ts
+const routes = [];
+
+function Get(path: string) {
+  return function (target: any, methodName: string) {
+    routes.push({
+      path,
+      methodName,
+    });
+  };
+}
+
+class UserController {
+  @Get('/users')
+  findAll() {
+    return ['Ali', 'Sara'];
+  }
+}
+```
+
+The decorator saves this:
+
+```ts
+{
+  path: "/users",
+  methodName: "findAll"
+}
+```
+
+Later, a router/framework can read `routes` and call the correct method.
+
+#### Decorators can also wrap behavior
+
+```ts
+function LogCall(target: any, methodName: string, descriptor: PropertyDescriptor) {
+  const original = descriptor.value;
+
+  descriptor.value = function (...args: unknown[]) {
+    console.log('Calling', methodName);
+    return original.apply(this, args);
+  };
+}
+```
+
+So decorators can either:
+
+```txt
+Store information for later
+or
+Change the decorated thing directly
+```
+
+#### Dart vs TypeScript
+
+In Dart/Flutter:
+
+```txt
+Annotation
+↓
+build_runner/source_gen
+↓
+generated code
+```
+
+In TypeScript:
+
+```txt
+Decorator runs at runtime
+↓
+metadata is stored in memory
+↓
+framework reads it and acts on it
+```
+
+#### Compact definition
+
+A TypeScript decorator is a runtime function attached with `@` that can store metadata, register things, or modify classes and class members.
