@@ -1471,14 +1471,38 @@ Later, a router/framework can read `routes` and call the correct method.
 #### Decorators can also wrap behavior
 
 ```ts
-function LogCall(target: any, methodName: string, descriptor: PropertyDescriptor) {
-  const original = descriptor.value;
+function LogCall(
+  target: any,
+  propertyKey: string,
+  descriptor: PropertyDescriptor,
+) {
+  const originalMethod = descriptor.value;
 
   descriptor.value = function (...args: unknown[]) {
-    console.log('Calling', methodName);
-    return original.apply(this, args);
+    console.log(`Calling ${propertyKey} with`, args);
+    const result = originalMethod.apply(this, args);
+    console.log(`${propertyKey} returned`, result);
+    return result;
   };
 }
+```
+
+```ts
+class Calculator {
+  @LogCall
+  add(a: number, b: number) {
+    return a + b;
+  }
+}
+
+const calc = new Calculator();
+
+calc.add(2, 3);
+```
+Output:
+```
+Calling add with [2, 3]
+add returned 5
 ```
 
 So decorators can either:
