@@ -336,6 +336,17 @@ window.addEventListener(...);
 localStorage.setItem(...);
 ```
 
+React is just a library that gives us component. In react by default component are considered to be pure. take in props and render the component. But outside this flow there are side effects that needs to be synchronized with react, its components and its components lifecycles. One synchronization example is run a code like api call right after the first render. Another is run an api call (side effect) every time a reactive value like a prop or state changes.
+
+React is commonly called a front-end framework, but more precisely, it is a JavaScript library for building user interfaces.
+
+The core problem React solves is the **UI composition and rendering problem**: how to define reusable pieces of interface, organize them into a component tree, and render that tree to the screen. React solves this through its component model. A component receives props as input and returns UI as output. Ideally, components are pure: given the same props, they produce the same result. When props or state change, React re-renders the affected parts of the component tree.
+
+But building a real application requires more than rendering UI. Applications also need to communicate with things outside the component tree: APIs, browser storage, timers, subscriptions, events, analytics, and other external systems. This creates another problem: **the side-effect synchronization problem**. In other words, how do we run code after a component renders? How do we react when a prop or state value changes? How do we keep React components synchronized with external systems?
+
+React’s solution to this problem is Hooks, and the Hook specifically designed for this kind of work is `useEffect`. In React terminology, these external operations are called **side effects**, which is why the Hook is named `useEffect`. A name like `useSideEffect` might have been more explicit, but `useEffect` means: run this effect after rendering, usually to synchronize the component with something outside React.
+
+
 #### Basic Syntax
 
 ```tsx
