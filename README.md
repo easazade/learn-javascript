@@ -864,6 +864,12 @@ Example:
 <div class="w-full md:w-1/2"></div>
 ```
 
+NOTE: Tailwind is mobile-first: Default is always applied and then it goes up sm, md, lg. Default value always is applied for below sm sizes
+
+```html
+<div class="h-20 sm:h-40 md:h-72 lg:h-96"></div>
+```
+
 ### 4. Flexbox in Tailwind
 
 #### Basic Flex
