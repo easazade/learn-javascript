@@ -1477,11 +1477,7 @@ Later, a router/framework can read `routes` and call the correct method.
 #### Decorators can also wrap behavior
 
 ```ts
-function LogCall(
-  target: any,
-  propertyKey: string,
-  descriptor: PropertyDescriptor,
-) {
+function LogCall(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const originalMethod = descriptor.value;
 
   descriptor.value = function (...args: unknown[]) {
@@ -1505,7 +1501,9 @@ const calc = new Calculator();
 
 calc.add(2, 3);
 ```
+
 Output:
+
 ```
 Calling add with [2, 3]
 add returned 5
@@ -1544,3 +1542,152 @@ framework reads it and acts on it
 #### Compact definition
 
 A TypeScript decorator is a runtime function attached with `@` that can store metadata, register things, or modify classes and class members.
+
+### CSS Position, Inset, and Z-Index
+
+Value of `position` css property will define how it is positioned or relative to what the element is positioned.
+
+#### Position Values
+
+| CSS        | Tailwind   | In normal flow? | Positioned relative to       |
+| ---------- | ---------- | --------------: | ---------------------------- |
+| `static`   | `static`   |             Yes | Normal document flow         |
+| `relative` | `relative` |             Yes | Its original position        |
+| `absolute` | `absolute` |              No | Nearest non-static ancestor  |
+| `fixed`    | `fixed`    |              No | Usually the browser viewport |
+| `sticky`   | `sticky`   |             Yes | Its scroll container         |
+
+#### Static
+
+The default position. The element remains in normal document flow. Offset properties such as `top` and `left` do not affect it.
+
+```tsx
+<div className="static">Content</div>
+```
+
+#### Relative
+
+The element remains in normal flow, and its original space stays reserved. Offsets move it visually from its original position.
+
+```tsx
+<div className="relative top-2 left-4">Content</div>
+```
+
+A common use is making a parent the reference point for an absolutely positioned child:
+
+```tsx
+<div className="relative">
+  <button className="absolute top-2 right-2">×</button>
+</div>
+```
+
+Here, the button is positioned relative to the parent.
+
+#### Absolute
+
+The element is removed from normal flow, so other elements behave as though it does not exist.
+
+It is positioned relative to its nearest ancestor whose `position` is not `static`, commonly a `relative` parent.
+
+```tsx
+<div className="relative">
+  <div className="absolute bottom-0 left-0">Bottom-left</div>
+</div>
+```
+
+Without a positioned ancestor, it is usually positioned relative to the page's initial containing block.
+
+##### Relative vs Absolute
+
+- `relative` remains in normal flow and keeps its space.
+- `absolute` leaves normal flow and does not keep its space.
+- A `relative` parent commonly acts as the coordinate reference for an `absolute` child.
+
+#### Fixed
+
+The element is removed from normal flow and is usually positioned relative to the browser viewport.
+
+It stays in the same screen position while scrolling.
+
+```tsx
+<button className="fixed right-5 bottom-5">Chat</button>
+```
+
+Common uses include floating buttons, fixed headers, cookie banners, and overlays.
+
+#### Sticky
+
+Initially behaves like a normal element, then sticks to a specified position while scrolling.
+
+```tsx
+<header className="sticky top-0">Navigation</header>
+```
+
+Sticky usually needs an offset such as `top-0`. It only sticks inside its scroll container or parent boundaries.
+
+#### Inset
+
+`inset` is shorthand for `top`, `right`, `bottom`, and `left`.
+
+```css
+inset: 0;
+```
+
+Tailwind:
+
+```tsx
+<div className="absolute inset-0">Overlay</div>
+```
+
+This stretches the element across its positioned parent.
+
+Useful Tailwind alternatives:
+
+```tsx
+<div className="inset-4" />    // all sides
+<div className="inset-x-4" />  // left and right
+<div className="inset-y-4" />  // top and bottom
+<div className="top-0 right-0" />
+```
+
+#### Z-Index
+
+`z-index` controls which overlapping element appears in front. Higher values normally appear above lower values.
+
+```tsx
+<div className="relative z-10">Front</div>
+<div className="relative z-0">Back</div>
+```
+
+Tailwind values include:
+
+```text
+z-0  z-10  z-20  z-30  z-40  z-50
+```
+
+Custom value:
+
+```tsx
+<div className="z-[999]">Content</div>
+```
+
+##### When Z-Index Works
+
+For ordinary elements, `z-index` works when `position` is:
+
+- `relative`
+- `absolute`
+- `fixed`
+- `sticky`
+
+```tsx
+<div className="relative z-10">Content</div>
+```
+
+It also works on flex and grid items, even when their position is `static`.
+
+```tsx
+<div className="flex">
+  <div className="z-10">Flex item</div>
+</div>
+```
